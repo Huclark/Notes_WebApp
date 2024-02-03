@@ -14,12 +14,13 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
-    <title>{% block title %} Home {% endblock title %}</title>
+    <title>{% block title %} Home {% endblock %}</title>
   </head>
   <body>
+    <!-- Add the navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button
-        class="navbar-toggle"
+        class="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbar"
@@ -28,14 +29,36 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-            <a href="/login" class="nav-item nav-link" id="login">Login</a>
-            <a href="/sign-up" class="nav-item nav-link" id="signUp">Sign Up</a>
-            <a href="/logout" class="nav-item nav-link" id="logout">Logout</a>
-            <a href="/" class="nav-item nav-link" id="home">Home</a>
+          <a href="/login" class="nav-item nav-link" id="login">Login</a>
+          <a href="/sign-up" class="nav-item nav-link" id="signUp">Sign Up</a>
+          <a href="/logout" class="nav-item nav-link" id="logout">Logout</a>
+          <a href="/" class="nav-item nav-link" id="home">Home</a>
         </div>
       </div>
     </nav>
 
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <!-- Add an 'x' to the button -->
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% if category == 'success' %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <!-- Add an 'x' to the button -->
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    <!-- This is where the content for every page is going to be -->
+    <div class="content">{% block content %} {% endblock %}</div>
+    <!-- Bootstrap JavaScript -->
     <script
       src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
